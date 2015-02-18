@@ -11,6 +11,9 @@ var path = require('path');
 
 var app = express();
 
+var server_port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
+var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
+
 // all environments
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
@@ -31,6 +34,10 @@ if ('development' == app.get('env')) {
 app.get('/', routes.index);
 app.get('/users', user.list);
 
-http.createServer(app).listen(app.get('port'), function(){
+/*http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
-});
+});*/
+
+http.createServer(app).listen(app.get('port'), server_ip_address, function(){
+	console.log("Express server listening on ip "+server_ip_address+" port " + app.get('port'));
+})
