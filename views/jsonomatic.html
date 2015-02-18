@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta charset="utf-8">
+
+	<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
+	<meta name="viewport" content="width=960">
+
+	<title>JSONOMATIC</title>
+	<meta name="description" content="blah blah">
+	<meta name="keywords" content="">
+	<meta name="copyright" content="guest+guest">
+	<link rel="shortcut icon" type="image/png" href="xx">
+
+	<meta property="og:title" content="xxx">
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="http://www.jsonomatic.com/">
+	<meta property="og:image" content="x.jpg">
+
+
+	<!--<link href="http://www.sponseasy.com/assets/application-8a6bb170a96db08caaaf1ced4459028e.css" media="screen" rel="stylesheet">-->
+	<link href="stylesheets/styles.css" media="screen" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> 
+	<script src="moment.min.js"></script>
+	<script>
+		$(function() {
+  $('a[href*=#]:not([href=#])').click(function() {
+    if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+      var target = $(this.hash);
+      target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+      if (target.length) {
+        $('html,body').animate({
+          scrollTop: target.offset().top
+        }, 1000);
+        return false;
+      }
+    }
+  });
+});
+</script>
+
+</head>
+<body>
+				
+	<header>
+	<div class="left">
+		<a href="http://json.org/#" id="header_pricing" class="left seeprice">JSON.ORG</a>
+		<a href="http://jsonlint.com/" id="seeblog" target="blank" class="left">jsonlint.com</a>
+	</div>
+	<div id="logo">
+		<img src="images/JSONomatic-icon.svg" alt="" style="width: 50px; margin-top: -10px">
+	</div>
+	<div class="right">
+		<div id="signup" class="connect right">
+			<div class="connect-content">
+				<img src="http://guestandguest.com/images/gg_image_logo50.png" alt="">
+			</div>
+			<div id="signup-links" class="connect-box">
+				<a href="http://www.sponseasy.com/#" class="goregister email"><div id="signup-mail" class="signup-link">Sign up with email</div></a>
+				<a href="http://www.sponseasy.com/auth/eventbrite"><div id="signup-eventbrite" class="signup-link">visit guest+guest</div></a>
+			</div>
+		</div>
+		<div id="login" class="connect right">
+			<div class="connect-content">
+				<img src="./Sponseasy _ Your sponsorship deck builder, and so much more._files/login-934b78cf1afdf2a4dfbe9da5fecb263b.png" alt="">OBJECT TYPES
+			</div>
+			<div id="login-links" class="connect-box">
+				<a href="http://www.sponseasy.com/#" class="gologin email"><div id="login-mail" class="login-link">Login with email</div></a>
+				<a href="http://www.sponseasy.com/#" class="gologin email"><div id="login-mail" class="login-link">Login with email</div></a>
+			</div>
+		</div>
+	</div>
+	
+	<style>
+		
+	</style>
+	
+</header>
+
+<div id="section-1">
+
+	</div>
+<div id="section-2" style="padding: 100px 0 50px 0">
+	<h1>JSONOMATIC</h1>
+	<div class="subtitle">Create randomized JSON data to fill your test databases.</div>
+	<a href="#section-3" id="tryit" class="goregister">How?</a>
+	<input id="repeats" type="number" value="300"/>
+	
+</div>
+<span id="numdone">0</span>
+<div id="section-2a">
+
+	<div id="editor">{   "name": { "first":"&lt;%FIRSTNAME%>", "last":"&lt;%LASTNAME%>" },
+	"email": "&lt;%EMAIL%> &lt;%LASTNAME%>",
+	"int" : "&lt;%INT(1, 5)%>",
+	"date" : "&lt;%DATE('11 Mar 1980',Date.now())%>",
+	"phone" : "&lt;%PHONE%> &lt;%FIRSTNAME%>",
+	"phone2" : "&lt;%PHONE2%>"
+}
+	</div>
+
+	<textarea id="outputPane">output...</textarea>
+		<button id="buttonGenerate">generate<img src="images/gears.svg"></button>
+</div>
+
+
+<div id="section-3">
+	<div class="container">
+		<div id="steps">
+			<div class="step">
+				<div class="left">
+					<div class="number">> 01</div>
+					<h3>Create Your Base JSON Object</h3>
+					<p>Use variables between the &lt;% %&gt; tags. Enter valid JSON (i.e. everything enclosed within "  ") but the code hinter will show if you make a mistake...</p>
+				</div>
+				<div class="right"><pre>>hello</pre></div>
+			</div>
+			<div class="step">
+				<div class="left">
+					<div class="number">> 02</div>
+					<h3>Select the number of objects to create</h3>
+					<p>Maximum is 10000</p>
+				</div>
+				<div class="right"><pre>>hello</pre></div>			</div>
+			<div class="step">
+				<div class="left">
+					<div class="number">> 03</div>
+					<h3>Click Generate!</h3>
+					<p>It's that easy- select all with the button and copy to the clipboard or download a verified JSON array. It's that easy.</p>
+				</div>
+				<div class="right"><pre>>hello</pre></div>
+			</div>
+		</div>
+		<a href="#section-2a" id="createit" class="goregister">GIVE IT A GO</a>
+	</div>
+</div>
+
+
+<div class="utilbox">
+	OBJECT
+	TYPES
+</div>
+
+<div class="dark-footer">
+	<div class="content">
+		<div class="row">
+			<div class="w25 column">
+				<a href="http://www.guestandguest.com" id="create-proposal" class="goregister">a guest+guest production</a>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+
+	
+		
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.1.3/ace.js" type="text/javascript" charset="utf-8"></script>
+	<script src="javascripts/main.js" type="text/javascript" charset="utf-8"></script>
+
+
+
+</body></html>
