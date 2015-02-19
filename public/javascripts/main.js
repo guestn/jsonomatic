@@ -1,8 +1,21 @@
 
+$(document).ready(function(){
+
+
+
+
 	
 var editor = ace.edit("editor");
 editor.setTheme("ace/theme/twilight");
 editor.getSession().setMode("ace/mode/javascript");
+
+function selectElementContents(el) {
+	console.dir(el);
+	el.focus();
+	el.select();
+};
+
+
 
 $("#buttonGenerate").on('click', function(){
 	
@@ -31,11 +44,17 @@ $("#buttonGenerate").on('click', function(){
 		data = JSON.parse(data);
 		data = JSON.stringify(data,  null, 4);
 		$('#outputPane').val(data);
+		//selectElementContents('#outputPane');
 	});;
     
 });
 
+$("#buttonSelectAll").on('click', function(){
+	$('#outputPane').select();
+});
 
+
+});
 
 /*
 function generate() {   
