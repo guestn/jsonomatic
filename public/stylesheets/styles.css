@@ -1,13 +1,110 @@
 
-	pre { background: black;
-		padding: 10px;
-		height: 200px;
-		border: 2px solid #225668;
-		width: 280px;
-		border-radius: 6px;
-	}
+pre { background: black;
+	 white-space: pre-wrap;       /* css-3 */
+ white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+ white-space: -pre-wrap;      /* Opera 4-6 */
+ white-space: -o-pre-wrap;    /* Opera 7 */
+ word-wrap: break-word;       /* Internet Explorer 5.5+ */
+}
 		
-		
+pre.explainBox {
+	padding: 10px;
+	height: 200px;
+	border: 2px solid #225668;
+	width: 280px;
+	border-radius: 6px;
+}
+
+#typesDescr	{
+	font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
+	font-size: 14px;
+	position:fixed;
+
+	width: 95%; /* fallback  */
+	width: calc(100% - 20px);
+	top: 100px;
+	left: -110%;
+	background: #222;
+	transition: left 1s;
+	padding: 10px 10px 10px 100px;
+	border-radius: 5px;
+	border: 1px solid white;
+}
+
+#typesDescr.slideIn {
+	left: 2.5%;
+	left: calc(20px - 10px);
+	transition: left 1s;
+}
+
+
+#typesDescr	dl dt  {
+	float: left;
+  width: 200px;
+  overflow: hidden;
+  clear: left;
+  text-align: right;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#typesDescr	dl dd  {
+	margin-left: 220px;
+}
+
+#typesDescr	pre{
+	background: #444;
+	width: 80%;
+	top: 100px;
+	left: 0;
+	word-wrap: normal;
+}
+
+
+input[type=range] {
+  -webkit-appearance: none; 
+  width: 160px; 
+  height: 20px; 
+  margin: 10px 50px; 
+  background: linear-gradient(to right, #16a085 0%, #16a085 100%); 
+  background-size: 150px 10px; 
+  background-position: center; 
+  background-repeat: no-repeat; 
+  overflow: hidden; 
+  outline: none; 
+  zoom: 130%; 
+  display: block; 
+  margin: auto; 
+  margin-bottom: 30px; 
+}
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none; 
+  width: 20px; 
+  height: 20px; 
+  background: #27ae60; 
+  position: relative; 
+  z-index: 3; 
+}
+
+input[type=range]::-webkit-slider-thumb:after {
+  content: " "; 
+  width: 160px; 
+  height: 10px; 
+  position: absolute; 
+  z-index: 1; 
+  right: 20px; 
+  top: 5px; 
+  background: #2ecc71; 
+}
+
+input[type=range]::-webkit-slider-thumb {
+  background: #2980b9; 
+}
+
+input[type=range]::-webkit-slider-thumb:after {
+  background: #3498db; 
+}
 	
 #editor {
 	position: absolute;
@@ -44,10 +141,13 @@ font-size: 12px
 	top: 100px;
 	left: 0;
 	padding: 10px;
-	z-index: 99
+	z-index: 99;
+	cursor: pointer;
 }
 
-
+.utilbox:hover {
+		background-color: rgba(49,57,63,1);
+}
 
 #buttonGenerate {
 	position: relative;
@@ -67,6 +167,8 @@ font-size: 12px
 	width: 50px;
 	fill: white;
 	stroke: white;
+	transform: rotate(360deg);
+	animation: translate 2s infinite;
 }
 
 #buttonGenerate:active {
@@ -82,7 +184,7 @@ font-size: 12px
 #buttonSelectAll {
 	position: relative;
 	background: #3aa9e3;
-		color: white;
+	color: white;
 	padding: 10px;
 	border: none;
 	left:50%;
@@ -95,11 +197,6 @@ font-size: 12px
 
 
 
-path #gear1:hover {
-
-	fill: green;
-	stroke: green;
-}
 
 #repeats {
 	display: block;
@@ -112,6 +209,18 @@ path #gear1:hover {
 
 #buttonGenerate.generating {
 	background: red;
+}
+
+#statusBar {
+	position: absolute;
+	background: #f15743;
+	padding: 5px;
+	left: 50%;
+	bottom: 100px;
+	display:none;
+	color: white;
+	border-radius: 5px;
+	box-shadow: 0px 0px 5px 2px rgba(255,255,255,0.3);
 }
 /*/////////////////////////////////////////////////////////*/
 
@@ -444,7 +553,7 @@ header .right .connect:hover .connect-box {
     -o-animation: connectShow 0.5s ease 0s forwards;
     -ms-animation: connectShow 0.5s ease 0s forwards;
 }
-header .login-link,
+header .howto-link,
 header .signup-link {
     width: 100%;
     height: 50px;
@@ -457,15 +566,15 @@ header .signup-link {
     -o-transition: background-color 0.3s ease;
     transition: background-color 0.3s ease;
 }
-header .login-link:hover,
+header .howto-link:hover,
 header .signup-link:hover {
     background-color: #2b3136
 }
-header .login-link#login-eventbrite,
+header .howto-link#login-eventbrite,
 header .signup-link#signup-eventbrite {
     background-color: #f16b24
 }
-header .login-link#login-eventbrite:hover,
+header .howto-link#login-eventbrite:hover,
 header .signup-link#signup-eventbrite:hover {
     background-color: #c5581e
 }
@@ -490,7 +599,7 @@ header .signup-link#signup-eventbrite:hover {
     position: absolute;
     top: 0;
     left: 0;
-    background:  url(images/bg-grid.png);
+    background:  url(../images/bg-grid.png);
     background-size: cover;
     background-repeat: repeat;
     background-position: center top;

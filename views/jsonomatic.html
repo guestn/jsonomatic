@@ -19,53 +19,38 @@
 
 	<!--<link href="http://www.sponseasy.com/assets/application-8a6bb170a96db08caaaf1ced4459028e.css" media="screen" rel="stylesheet">-->
 	<link href="stylesheets/styles.css" media="screen" rel="stylesheet">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> 
+
 	<script src="javascripts/moment.min.js"></script>
-	<script>
-		$(function() {
-  $('a[href*=#]:not([href=#])').click(function() {
-    if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
-      var target = $(this.hash);
-      target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
-      if (target.length) {
-        $('html,body').animate({
-          scrollTop: target.offset().top
-        }, 1000);
-        return false;
-      }
-    }
-  });
-});
-</script>
 
 </head>
 <body>
 				
 	<header>
 	<div class="left">
-		<a href="http://json.org/#" id="header_pricing" class="left seeprice">JSON.ORG</a>
-		<a href="http://jsonlint.com/" id="seeblog" target="blank" class="left">jsonlint.com</a>
+		<a href="http://json.org/#" target="blank" class="left">JSON.ORG</a>
+		<a href="http://jsonlint.com/" target="blank" class="left">jsonlint.com</a>
 	</div>
 	<div id="logo">
 		<img src="images/JSONomatic-icon.svg" alt="" style="width: 50px; margin-top: -10px">
 	</div>
 	<div class="right">
-		<div id="signup" class="connect right">
+		<div class="connect right">
 			<div class="connect-content">
 				<img src="http://guestandguest.com/images/gg_image_logo50.png" alt="">
 			</div>
-			<div id="signup-links" class="connect-box">
-				<a href="http://www.sponseasy.com/#" class="goregister email"><div id="signup-mail" class="signup-link">Sign up with email</div></a>
-				<a href="http://www.sponseasy.com/auth/eventbrite"><div id="signup-eventbrite" class="signup-link">visit guest+guest</div></a>
+			<div class="connect-box">
+				<!--<a href="http://www.com/#" class="goregister email"><div id="signup-mail" class="signup-link">Sign up with email</div></a>-->
+				<a href="http://www.guestandguest.com"><div id="" class="signup-link" target="_blank" >visit guest+guest</div></a>
 			</div>
 		</div>
 		<div id="login" class="connect right">
 			<div class="connect-content">
-				<img src=".png" alt="">OBJECT TYPES
+				HOW TO
 			</div>
-			<div id="login-links" class="connect-box">
-				<a href="http://www.sponseasy.com/#" class="gologin email"><div id="login-mail" class="login-link">Login with email</div></a>
-				<a href="http://www.sponseasy.com/#" class="gologin email"><div id="login-mail" class="login-link">Login with email</div></a>
+			<div  class="connect-box">
+				<a href="http://docs.mongodb.org/manual/core/import-export/" class="gologin email" target="_blank"><div class="howto-link" target="_blank">MongoDB</div></a>
+				<a href="http://wiki.apache.org/couchdb/HTTP_Bulk_Document_API" class="gologin email" target="_blank"><div class="howto-link">CouchDB</div></a>
+
 			</div>
 		</div>
 	</div>
@@ -82,8 +67,9 @@
 <div id="section-2" style="padding: 100px 0 50px 0">
 	<h1>JSONOMATIC</h1>
 	<div class="subtitle">Create randomized JSON data to fill your test databases.</div>
-	<a href="#section-3" id="tryit" class="goregister">How?</a>
-	<input id="repeats" type="number" value="300"/>
+	<a href="#section-3" id="tryit">How?</a>
+	<input id="repeats" type="number" value="2"/>
+	<input type="range" value="20" class="green"/>
 	
 </div>
 <span id="numdone">0</span>
@@ -97,13 +83,13 @@
 	"email": "&lt;%EMAIL%&gt; &lt;%LASTNAME%&gt;",
 	"int" : "&lt;%INT(1, 5)%&gt;",
 	"date" : "&lt;%DATE('11 Mar 1980',Date.now())%&gt;",
-	"phone" : "&lt;%PHONE%&gt; &lt;%FIRSTNAME%&gt;",
+	"phone" : "&lt;%PHONE%&gt;",
 	"phone2" : "&lt;%PHONE2%&gt;"
 }
 	</div>
 
-	<textarea id="outputPane">output...</textarea>
-		<button id="buttonGenerate">generate<img src="images/gears.svg"></button>
+	<textarea id="outputPane">output...</textarea><div id="statusBar"></div>
+		<button id="buttonGenerate">generate<img src="images/gears.svg"/><img src="images/gears2.svg"/></button>
 		<button id="buttonSelectAll">select all</button>
 </div>
 
@@ -117,7 +103,7 @@
 					<h3>Create Your Base JSON Object</h3>
 					<p>Use variables between the &lt;% %&gt; tags. Enter valid JSON (i.e. everything enclosed within "  ") but the code hinter will show if you make a mistake...</p>
 				</div>
-				<div class="right"><pre>>hello</pre></div>
+				<div class="right"><pre class="explainBox">>hello</pre></div>
 			</div>
 			<div class="step">
 				<div class="left">
@@ -125,30 +111,44 @@
 					<h3>Select the number of objects to create</h3>
 					<p>Maximum is 10000</p>
 				</div>
-				<div class="right"><pre>>hello</pre></div>			</div>
+				<div class="right"><pre class="explainBox">>hello</pre></div>			</div>
 			<div class="step">
 				<div class="left">
 					<div class="number">> 03</div>
 					<h3>Click Generate!</h3>
 					<p>It's that easy- select all with the button and copy to the clipboard or download a verified JSON array. It's that easy.</p>
 				</div>
-				<div class="right"><pre>>hello</pre></div>
+				<div class="right"><pre class="explainBox">>hello</pre></div>
 			</div>
 		</div>
-		<a href="#section-2a" id="createit" class="goregister">GIVE IT A GO</a>
+		<a href="#section-2a" id="createit">GIVE IT A GO</a>
 	</div>
 </div>
 
 
-<div class="utilbox">
+
+<div id="typesDescr">
+	<dl>
+		<dt>&lt;%FIRSTNAME%&gt;</dt><dd>A random first name</dd>
+		<dt>&lt;%LASTNAME%&gt;</dt><dd>A random surname</dd>
+		<dt>&lt;%COMPANY%&gt;</dt><dd>A randomly created company name</dd>
+		<dt>&lt;%EMAIL%&gt;</dt><dd>creates an email in the format &lt;%FIRSTNAME%&gt;.&lt;%LASTNAME%&gt;@&lt;%COMPANY%&gt;.com if created in the same object, or creates a random email if not</dd>
+		<dt>&lt;%INT(arg1, arg2)%&gt;</dt><dd>creates a random integer in the range between arg1 and arg2</dd>
+		<dt>&lt;%DATE(arg1, arg2)%&gt;</dt><dd>creates a random date between date1 and date2</dd>	
+		<dt>&lt;%PHONE%&gt;</dt><dd>creates a random 10 digit phone number</dd>
+		<dt>&lt;%PHONE2%&gt;</dt><dd>creates random 10 digit phone number, formatted (000) 000 0000</dd>
+		<dt>&lt;%TEXT(arg1)%&gt;</dt><dd>creates arg1 words of random lorem ipsum text</dd>
+	</dl>
+	<div class="utilbox">
 	OBJECT
 	TYPES
+	</div>
 </div>
 
 <div class="dark-footer">
 	<div class="content">
 		<div class="row">
-			<div class="w25 column">
+			<div class="w25 column right">
 				<a href="http://www.guestandguest.com" id="create-proposal" class="goregister">a guest+guest production</a>
 
 			</div>
@@ -158,10 +158,12 @@
 
 
 	
-		
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.1.3/ace.js" type="text/javascript" charset="utf-8"></script>
+
 	<script src="javascripts/main.js" type="text/javascript" charset="utf-8"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.1.3/ace.js" type="text/javascript" charset="utf-8"></script>
+
 
 
 

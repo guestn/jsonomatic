@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta charset="utf-8">
+
+	<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
+	<meta name="viewport" content="width=960">
+
+	<title>FONTOMATIC</title>
+	<meta name="description" content="blah blah">
+	<meta name="keywords" content="">
+	<meta name="copyright" content="guest+guest">
+	<link rel="shortcut icon" type="image/png" href="xx">
+
+	<meta property="og:title" content="xxx">
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="http://www.jsonomatic.com/">
+	<meta property="og:image" content="x.jpg">
+
+	<link href="stylesheets/css-reset.css" media="screen" rel="stylesheet">
+	<link href="stylesheets/fontstyles.css" media="screen" rel="stylesheet">
+
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+
+
+
+<title>fonts</title>
+<style>
+		
+</style>
+</head>
+<body>
+	<header>
+		<span class="brand">FONTS</span>
+	</header>
+	<div id="container">
+		<div id="controlBox">
+			<input type="text" name="sendstr" id="sendstr" value="hello world!" placeholder="sample text" />
+			<span class="custom-dropdown">
+				<select name="size" id="size">
+					<option>24px</option>
+					<option>30px</option>
+					<option>36px</option>
+					<option selected>40px</option>
+					<option>48px</option>
+				</select>
+			</span>
+			<button id="buttonSubmit">submit</button>
+		</div>
+		<div id="status">change the parameters above to view a sample of text in all your fonts...</div>
+		<div id="output"></div>
+		<div id="scrollUp" title="Back to Top"></div>	
+	</div>			
+
+<script>
+
+$(document).ready(function(){
+
+	
+	
+	
+	'use strict'
+	
+	$("#controlBox").on('change click', function(e){
+		e.preventDefault;
+		$('#status').html('<span>generating...</span><div class="spinner"></div>');
+		
+		
+		$('#output').html('');
+		//var Jobj = JSON.stringify(output)
+		
+		var sendstr = $('#sendstr').val();
+		
+		var size = $('#size').val();
+
+		var size2 = size;
+		
+		var fonts = [];
+	    //$.post("/submit", data, function(data, status){
+	    //    alert("Data: " + data + "\nStatus: " + status);
+	   // });
+	    $.ajax({
+		  type: "POST",
+		  url: '/send',
+		  data: {sendstr: sendstr, size: size},
+		 // contentType: "application/json; charset=utf-8",
+		  //success: success,
+		  dataType: 'text'
+		}).success(function(fonts){
+			console.log('nice one!');
+			//console.log(fonts);
+			var fonts = JSON.parse(fonts);
+			$('#outputstr').val(sendstr);
+
+			var fontsTotal = fonts.length;
+			
+			
+			for (var i = 0; i < fontsTotal; ++i) {
+				console.log(this.postscriptName);
+				var size3 =	size2;
+				$('#output').append(
+					'<div class="resultBox"><div class="resultBoxTitle">'+(i+1)+': '+fonts[i].postscriptName+'</div><div style="font-family: '+fonts[i].postscriptName+'; font-size: '+size3+';"><span id="outputstr">'+sendstr+'</span></div>'
+				).fadeIn(1000);
+			};
+			
+			$('#status').html('DONE: '+fontsTotal+' total fonts found');
+			//data = JSON.parse(data);
+			//data = JSON.stringify(data,  null, 4);
+			//$('#outputPane').val(data);
+			
+			//$('#statusBar').text(repeats.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+' objects added successfully')
+			//$('#statusBar').stop().fadeIn(1000).delay(4000).fadeOut(1000);
+			//selectElementContents('#outputPane');
+		});
+	    
+	});
+	
+	//filter box:
+	
+
+	  // custom css expression for a case-insensitive contains()
+	  jQuery.expr[':'].Contains = function(a,i,m){
+	      return (a.textContent || a.innerText || "").toUpperCase().indexOf(m[3].toUpperCase())>=0;
+	  };
+	
+	
+	  function listFilter(controls, list) { // header is any element, list is an unordered list
+	    // create and add the filter form to the header
+	    var form = $("<form>").attr({"class":"filterform","action":"#"}),
+	        input = $("<input>").attr({"class":"filterinput","type":"text"});
+	    $(form).append(input).appendTo(controls);
+
+
+		console.log(input);
+	    $(input)
+	      .change( function () {
+	        var filter = $(this).val();
+	        console.log(filter);
+	        if(filter) {
+	          // this finds all links in a list that contain the input,
+	          // and hide the ones not containing the input while showing the ones that do
+	          $(list).find("#output .resultBox div:not(:Contains(" + filter + "))").parent().fadeOut(100);
+	          $(list).find("#output .resultBox div:Contains(" + filter + ")").parent().slideDown();
+	        } else {
+	          $(list).find("div").slideDown();
+	        }
+	        return false;
+	      })
+	    .keyup( function () {
+	        // fire the above change event after every letter
+	        $(this).change();
+	    });
+	  }
+	
+	
+	  //ondomready
+	
+	  listFilter($("#controlBox"), $("#output"));
+
+	  $('#scrollUp').on('click', function(){
+		  //$('#container').scrollTop(0);
+		  $('html,body').animate({
+		       scrollTop: 0
+		  }, 500);
+	  })
+
+
+	
+});
+
+
+</script>
+	
+</body>
+
+<html>

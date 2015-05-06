@@ -1,65 +1,34 @@
 var moment = require('moment');
 var traverse = require('traverse');
+var AY = require('../modules/arrays');
 
 exports.process = function(req, res) {
-
-	//return function(req, res) {
-		//console.log('processing'+req.body.first);
 		
+		/* pull in the form data */
 		var jsonInput = req.body.output;
 		
 		var repeats = req.body.repeats;	
-		//$('#generating').addClass('generating').removeClass('not-generating');
-		//$('#buttonGenerate').html('....');
-		
-	    //var output = editor.getValue();
+
 	    var Jobj = JSON.parse(jsonInput); 
-	    console.log(Jobj);
 	    
-	    //initialise the random arrays:
-		var firstname = ["John","James","Joe"];
-		var lastname = ["Smith","Jones","Brown","Davis"];
-		var company = ["Newdex","Zaamtom","Silvertech","Drillcon","Wepco"];
-		
-		var lorem = ["ipsum","dolor","it","amet","consectetur","adipisicing","elit","sed" ];
+	    /* initialise the random arrays: */
+	    
+	    var firstname = AY.firstname;
+		var lastname = AY.lastname;
+		var company = AY.company;
+		var lorem = AY.lorem;
 		
 		var randomArray = { firstname: firstname, lastname: lastname, company: company };
 			
-	
 		var finaloutput = [];
 		
-		//function to parse INT string and produce random integer
-		function INT(lo, hi) {
-			lo = parseInt(lo);
-			hi = parseInt(hi);
-			
-			return l = Math.round((Math.random()*(hi-lo)+lo));
-			console.log('l: '+l);
-		};
-		
-		function createText(wordsCount) {
-			//console.log('wordsCount: '+wordsCount);
-			w = parseInt(wordsCount.substring(7, 29));
-			//console.log('w: '+w);
-			var txt="";
-			for(var i = 0; i < w; i++) {
-				var r = Math.floor(Math.random() * lorem.length);
-				//console.log('r: '+r);
-				txt += lorem[r]+' ';
-				//console.log('txt: '+txt);
-			};
-			return txt;
-		};
-		
-	
-	
 		for(n=0; n < repeats; n++) {
 			var randSelect = {};
 			//set up array of random selections for each iteration:
 			for(item in randomArray){
 				randSelect[item] = Math.floor((Math.random() * randomArray[item].length));
 			};
-			//console.log(randSelect);
+
 			
 			
 			var fname="", lname = "", email ="", l = "", odate = "", phone="", phone2 = "";
@@ -67,8 +36,33 @@ exports.process = function(req, res) {
 					console.dir('o:'+o);
 
 			var j = {};
-			Jobj = JSON.parse(jsonInput);//JSON.parse(JSON.stringify(jsonInput));
+			Jobj = JSON.parse(jsonInput);
 			console.log(Jobj);
+			
+			
+			
+		/* Utility functions to run on JSON input */	
+			
+			//function to parse INT string and produce random integer
+			function INT(lo, hi) {
+				lo = parseInt(lo);
+				hi = parseInt(hi);
+				
+				return l = Math.round((Math.random()*(hi-lo)+lo));
+			};
+			
+			//function to create random integer
+			function createText(wordsCount) {
+				w = parseInt(wordsCount.substring(7, 29));
+	
+				var txt="";
+				for(var i = 0; i < w; i++) {
+					var r = Math.floor(Math.random() * lorem.length);
+					txt += lorem[r]+' ';
+				};
+				return txt;
+			};
+
 			
 			function FIRSTNAME() {
 				return fname = randomArray.firstname[randSelect.firstname]
@@ -87,7 +81,7 @@ exports.process = function(req, res) {
 			cmpny = COMPANY();
 			
 			function EMAIL() {
-				return email = fname + '.' + lname + '@' + cpmny + '.com';
+				return email = fname.toLowerCase() + '.' + lname.toLowerCase() + '@' + cpmny.toLowerCase() + '.com';
 			}
 			
 			function DATE(i1,i2) {
@@ -113,54 +107,47 @@ exports.process = function(req, res) {
 	
 			
 
-			
-
-			
+		/* Traverse tree function (and execute relevant utility functions) */		
+	
 			traverso = function() {
 				traverse(o).forEach(function (x) {
-					console.dir('o:'+o);
+					
+					// Only run functions at all if they sit between the correct tags <% %> */
 					if(/\<%(.*?)%>/.test(x)) {
 						
-						console.log('we are in!')
-						//console.log(x);
+						
+						/*start going with the functions for each node of the tree*/
 						if(/FIRSTNAME/.test(x)) {
 							FIRSTNAME();
-							//console.log(fname);
-							//y = x.replace('FIRSTNAME', fname);
-							//console.log(y);
-						}
+						};
+
 						if(/LASTNAME/.test(x)) {
 							LASTNAME();
-							//y = x.replace('LASTNAME', lname);
-							//console.log(y);
-						}
+						};
+
 						if(/EMAIL/.test(x)) {
 							EMAIL();
-							//y = x.replace('EMAIL', email);
-							//console.log(y);
-						}
+						};
+
 						if (/\<%INT(.*?)%\>/.test(x)) {
-							//console.log("INNNNNT");
 							u = /\<%(INT.*?)%\>/.exec(x);
 							eval(u[1]);
-							//console.log(u);
-							//this.update(y);
-							};
+						};
 							
 						if(/\<%DATE(.*?)%>/.test(x)) {console.log('match')
 							p = /\<%(DATE.*?)%>/.exec(x);
-							//console.log(p[1]);
-							eval(p[1]);
-							
-							//this.update(odate);
-							
+							eval(p[1]);					
 						};
+
 						if(/PHONE/.test(x)) {
 							 PHONE();
 						};
+
 						if(/PHONE2/.test(x)) {
 							 PHONE2();
 						};
+						
+						/*loop through input objects and replace with the computed fn results*/
 						
 						var a = x.replace(/<%FIRSTNAME%>/g, fname);
 						var b = a.replace(/<%LASTNAME%>/g, lname);
@@ -186,22 +173,14 @@ exports.process = function(req, res) {
 
 			
 			finaloutput[n] = x;
-		//console.log('final[n]: '+finaloutput[1]);
 			
 		};
 		
-		 //var finalOutput = JSON.stringify(final).replace(',','hello');
-		
+
 		output = JSON.stringify(finaloutput);
-		console.log('output: '+output);
+
 		res.send(output);
-		 //document.getElementById('resultText').innerHTML = repeats + ' sub-objects generated in JSON';
-		// document.getElementById('outputPane').focus();
-		// document.getElementById('outputPane').select();
-	
-		//$('#generating').addClass('not-generating').removeClass('generating');
-		//$('#buttonGenerate').html('generate');
+
 		console.log('finished');
 
-	//}
 }
