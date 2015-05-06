@@ -1,3 +1,5 @@
-The OpenShift `nodejs` cartridge documentation can be found at:
+Small nodejs app to produce randomized test data (names, emails, phone nos etc) in JSON format from a single JSON object, but simply and without command line.
 
-http://openshift.github.io/documentation/oo_cartridge_guide.html#nodejs
+Currently hosted at: http://jsonomatic-edthere.rhcloud.com/
+
+And… not quite finished yet.
