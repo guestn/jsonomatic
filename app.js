@@ -1,21 +1,22 @@
-
 /**
  * Module dependencies.
  */
 
 var express = require('express');
-var routes = require('./routes');
+//var routes = require('./routes/router');
 var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
 var bodyParser = require('body-parser')
+var urlencodedParser = bodyParser.urlencoded({ extended: false })
+var FM = require('./routes/modules/functions-manager');
+
+
 
 var app = express();
 
-require('./routes/router')(app);
-
-var server_port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
-var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
+var server_port = process.env.OPENSHIFT_NODEJS_PORT || 3020;
+var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || 'localhost'; //'0.0.0.0';
 
 // all environments
 app.set('port', server_port);
@@ -34,14 +35,27 @@ app.use(express.urlencoded());
 app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.favicon("public/images/favicon.png")); 
+
+
 
 // development only
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-//app.get('/', routes.index);
-//app.get('/users', user.list);
+	app.get('/', function(req, res){
+		console.log('hi');
+		res.render('jsonomatic2',{title : 'JSONOMATIC'})
+	});
+	app.post('/submit', urlencodedParser, function (req, res, err) {
+       var jsonInput = req.body.output;
+	   console.log(jsonInput);
+	   FM.process(req, res);
+	   
+	   res.send('thanks');
+	});
+	//app.get('/users', user.list);
 
 /*http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

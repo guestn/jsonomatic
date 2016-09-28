@@ -9,8 +9,9 @@ var FM = require('./modules/functions-manager');
 
 module.exports = function(app) {
 
-	app.get('/', function(req, res){	
-		res.render('jsonomatic',{title : 'JSONOMATIC'})
+	app.get('/', function(req, res){
+		console.log('hi');
+		res.render('jsonomatic2',{title : 'JSONOMATIC'})
 	});
 	
 	
@@ -21,31 +22,6 @@ module.exports = function(app) {
 	   
 	   res.send('thanks');
 	});
-	
-	app.get('/fonts', function(req, res) {
-		
-		var fonts = [];
-		var fontManager = require('font-manager');
-		fontManager.getAvailableFonts(function(fonts) { 
-			res.render('fonts', {fonts: fonts, sendstr : 'the quick brown fox 1234567890', size: '20px'});
-		});
-	});
-	
-	app.post('/send', urlencodedParser, function(req, res, err){
-		var fontManager = require('font-manager');
-		var sendstr = req.body.sendstr;
-		var size = req.body.size;
-
-		var FM = new fontManager.getAvailableFonts(function(fonts) { 
-			/*res.render('fonts', {
-				fonts: fonts,
-				size: size,
-				sendstr : sendstr
-			});*/
-			res.json(fonts);
-		});
-
-	})
 
 };//final app closing
 

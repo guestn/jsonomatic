@@ -2,18 +2,61 @@
 $(document).ready(function(){
 
 	/*ace editor setup*/
-	var editor = ace.edit("editor");
-	editor.setTheme("ace/theme/twilight");
-	editor.getSession().setMode("ace/mode/javascript");
+	var editor = ace.edit('editor');
+	editor.setTheme('ace/theme/tomorrow');
+	editor.getSession().setMode('ace/mode/javascript');
+	editor.setAutoScrollEditorIntoView(true);
 	
+	sectionWidth = $('#editorContainer').width();
+
+	$('#editorContainer').resizable({
+
+      maxHeight: 1000,
+      maxWidth: sectionWidth,
+      minHeight: 300,
+      minWidth: sectionWidth
+
+    });
 
 	/*slide utilbox*/
-	$('.utilbox').on('click', function(e){
-		$('#typesDescr').toggleClass('slideIn');
+	$('aside.right').on('click', function(e){
+		$('').toggleClass('slideIn');
 	});
+	
+	$('aside.right').on('click',function(){
+		$('body').toggleClass('menu-open');
+	})
+	
+	/*set up repeats*/
+/*
+	
+	$('#repeatsRange').on('change',function(){
+		console.log($(this).val())
+		$('#repeats').val($(this).val())
+	})
+	
+*/
+	var repeatsRange = document.getElementById('repeatsRange')
+	var repeatsInput = document.getElementById('repeats')
+	var buttonGenerate = document.getElementById('buttonGenerate')
+
+	repeatsRange.addEventListener('input', function() {
+		repeatsInput.value = parseInt(this.value);
+	}, false);
+
+	repeatsInput.addEventListener('input', function() {
+		repeatsRange.value = parseInt(this.value)
+	}, false);	
+
 	
 
 	/*generate objects*/
+	
+	function displayMessage(msg) {
+
+		$('#statusBar').fadeOut(500).stop().text(msg).fadeIn(1000).delay(4000).fadeOut(1000);
+	}
+	
 	$("#buttonGenerate").on('click', function(e){
 		e.preventDefault;
 		$('#outputPane').val('generating...');
@@ -34,19 +77,33 @@ $(document).ready(function(){
 		}).success(function(data){
 			console.log(data);
 			data = JSON.parse(data);
-			data = JSON.stringify(data,  null, 4);
+			data = JSON.stringify(data, null, 4);
 			$('#outputPane').val(data);
 			
-			$('#statusBar').text(repeats.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+' objects added successfully')
-			$('#statusBar').stop().fadeIn(1000).delay(4000).fadeOut(1000);
+			var msg = repeats.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+' objects added successfully'
+			displayMessage(msg);
 		});
 	    
 	});
 	
 	
 	/*select output*/
-	$("#buttonSelectAll").on('click', function(){
+	$('#buttonSelectAll').on('click', function(){
 		$('#outputPane').select();
+	});
+	
+	$('#buttonCopyClipboard').on('click',function(){
+		$('#outputPane').select();
+		document.execCommand("copy");
+		displayMessage('Copied to Clipboard!');
+
+	});
+	
+	$('#buttonDownloadJSON').on('click',function(){
+		var text = $('#outputPane').val();
+		saveTextAs(text, 'object.json');
+		displayMessage('Downloaded as object.json');
+
 	});
 
 
