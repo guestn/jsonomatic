@@ -12,6 +12,16 @@ a {
 	box-sizing: border-box;
 }
 
+.clear:before,
+.clear:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.clear:after {
+    clear: both;
+}
+
 /* structure */
 
 .container {
@@ -224,6 +234,13 @@ input[type=range]:focus::-ms-fill-upper {
     padding: 10px;
 }
 
+#editor:focus,
+#editor:active,
+#outputPane:focus,
+#outputPane:active {
+	outline: 0;
+}
+
 .ace_scroller.ace_scroll-left {
 	box-shadow: none;
 }
@@ -247,15 +264,14 @@ input[type=range]:focus::-ms-fill-upper {
 #statusBar {
 	position:absolute;
 	width: auto;
+	display: none;
 	left:50%;
 	transform:translateX(-50%);
 	bottom: -30px;
 	background:#21cae1;
 	font-size: 20px;
 	padding: 20px;
-	color:white;
-
-	
+	color:white;	
 }
 
 /* buttons */
